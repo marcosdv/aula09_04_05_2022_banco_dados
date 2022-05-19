@@ -41,4 +41,44 @@ class EditoraHelper {
 
     return retorno;
   }
+
+  Future<List<Editora>> getTodos() async {
+    Database db = await BancoDados().db;
+
+    List listaDados = await db.query(Editora.Tabela);
+
+    return listaDados.map((e) => Editora.fromMap(e)).toList();
+    /*
+    List<Editora> listaEditora = [];
+    for (int i = 0; i < listaDados.length; i++) {
+      listaEditora.add(Editora.fromMap(listaDados[i]));
+    }
+    return listaEditora;
+    */
+  }
+
+  Future<Editora?> getEditora(int codigo) async {
+    Database db = await BancoDados().db;
+
+    List listaDados = await db.query(
+      Editora.Tabela,
+      columns: [Editora.campoCodigo, Editora.campoNome],
+      where: '${Editora.campoCodigo} = ?',
+      whereArgs: [codigo]
+    );
+
+    if (listaDados.isNotEmpty) {
+      return Editora.fromMap(listaDados.first);
+    }
+
+    return null;
+  }
+
+  Future<int> getTotal() async {
+    Database db = await BancoDados().db;
+
+    return Sqflite.firstIntValue(
+      await db.rawQuery("SELECT COUNT(*) FROM ${Editora.Tabela}")
+    ) ?? 0;
+  }
 }

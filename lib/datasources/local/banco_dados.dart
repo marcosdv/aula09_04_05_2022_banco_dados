@@ -21,6 +21,7 @@ class BancoDados {
     return await openDatabase(caminhoBanco, version: 1,
       onCreate: (Database db, int newVersion) async {
         await db.execute(EditoraHelper.createSql);
+        await db.execute(LivroHelper.createSql);
       }
     );
   }

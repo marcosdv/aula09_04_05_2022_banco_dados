@@ -1,3 +1,7 @@
+import 'package:aula09_04_05_2022_banco_dados/datasources/datasources.dart';
+import 'package:aula09_04_05_2022_banco_dados/models/models.dart';
+import 'package:aula09_04_05_2022_banco_dados/ui/components/components.dart';
+import 'package:aula09_04_05_2022_banco_dados/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,8 +12,53 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _editoraHelper = EditoraHelper();
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Meus Livros'), centerTitle: true),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: (){ _abrirCadastroEditora(); },
+      ),
+      body: FutureBuilder(
+        future: _editoraHelper.getTodos(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const CirculoEspera();
+            default:
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
+              else {
+                return _criarListaEditora(snapshot.data as List<Editora>);
+              }
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _criarListaEditora(List<Editora> listaEditora) {
+    return ListView.builder(
+      padding: const EdgeInsets.all(8),
+      scrollDirection: Axis.vertical,
+      itemCount: listaEditora.length,
+      itemBuilder: (context, index) {
+        return _criarItemLista(listaEditora[index]);
+      },
+    );
+  }
+
+  Widget _criarItemLista(Editora editora) {
+    return Text(editora.nome);
+  }
+
+  void _abrirCadastroEditora() {
+    Navigator.push(context, MaterialPageRoute(
+        builder: (context) => const CadEditoraPage()));
   }
 }
