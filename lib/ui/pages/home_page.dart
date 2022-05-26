@@ -4,6 +4,8 @@ import 'package:aula09_04_05_2022_banco_dados/ui/components/components.dart';
 import 'package:aula09_04_05_2022_banco_dados/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
 
+import 'livros_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -54,11 +56,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _criarItemLista(Editora editora) {
-    return Text(editora.nome);
+    return GestureDetector(
+      child: Card(
+        child: Padding(
+          padding: EdgeInsets.all(12),
+          child: Text(editora.nome, style: TextStyle(fontSize: 30),),
+        ),
+      ),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => LivrosPage(editora)));
+      },
+      onLongPress: () {
+        _abrirCadastroEditora(editora: editora);
+      },
+    );
   }
 
-  void _abrirCadastroEditora() {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => const CadEditoraPage()));
+  void _abrirCadastroEditora({Editora? editora}) async {
+    await Navigator.push(context, MaterialPageRoute(
+        builder: (context) => CadEditoraPage(editora: editora,)));
+
+    setState(() { });
   }
 }

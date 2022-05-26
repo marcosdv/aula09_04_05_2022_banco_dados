@@ -2,7 +2,7 @@
 
 ![Badge](https://img.shields.io/badge/Marcos%20Dias%20Vendramini-Flutter-blue)
 
-### Aula 09, Aula 10 ministrada no dia 04/05/2022 e 18/05/2022 para o quinto período do Curso de Sistemas para Internet da UniAlfa de Umuarama (2º Bimestre).
+### Aula 09, Aula 10, Aula 11 ministrada no dia 04/05/2022, 18/05/2022 e 25/05/2022 para o quinto período do Curso de Sistemas para Internet da UniAlfa de Umuarama (2º Bimestre).
 
 ### Conteúdo
 

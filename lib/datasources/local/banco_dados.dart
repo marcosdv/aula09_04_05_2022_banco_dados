@@ -9,7 +9,7 @@ class BancoDados {
 
   Database? _db;
   Future<Database> get db async {
-    _db ??= await _iniciarDb();
+    _db = await _iniciarDb();
     return _db!;
   }
 
