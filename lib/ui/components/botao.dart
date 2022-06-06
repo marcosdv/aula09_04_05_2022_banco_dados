@@ -5,11 +5,13 @@ class Botao extends StatelessWidget {
   final String texto;
   final BotaoEnum tipo;
   final VoidCallback clique;
+  final IconData? icone;
 
   const Botao({
-    required this.texto,
+    this.texto = '',
     this.tipo = BotaoEnum.quadrado,
     required this.clique,
+    this.icone,
     Key? key}) : super(key: key);
 
   @override
@@ -22,10 +24,14 @@ class Botao extends StatelessWidget {
   }
 
   Widget _criarBotaoTexto() {
-    return TextButton(child: Text(texto), onPressed: clique);
+    return TextButton(child: _criarItemBotao(), onPressed: clique);
   }
 
   Widget _criarBotaoQuadrado() {
-    return ElevatedButton(child: Text(texto), onPressed: clique);
+    return ElevatedButton(child: _criarItemBotao(), onPressed: clique);
+  }
+
+  Widget _criarItemBotao() {
+    return icone != null ? Icon(icone) : Text(texto);
   }
 }

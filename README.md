@@ -1,8 +1,8 @@
-# Aula 09/10 - 04-05-2022 até 18-05-2022 - Banco de Dados (Database - SQLite)
+# Aula 09/10/11/12 - 04-05-2022 até 01-06-2022 - Banco de Dados (Database - SQLite)
 
 ![Badge](https://img.shields.io/badge/Marcos%20Dias%20Vendramini-Flutter-blue)
 
-### Aula 09, Aula 10, Aula 11 ministrada no dia 04/05/2022, 18/05/2022 e 25/05/2022 para o quinto período do Curso de Sistemas para Internet da UniAlfa de Umuarama (2º Bimestre).
+### Aula 09, Aula 10, Aula 11 ministrada no dia 04/05/2022, 18/05/2022, 25/05/2022 e 01/06/2022 para o quinto período do Curso de Sistemas para Internet da UniAlfa de Umuarama (2º Bimestre).
 
 ### Conteúdo
 
@@ -11,8 +11,8 @@
 - [x] Criando os Helpers
 - [x] Listagem de Editora
 - [x] Cadastro de Editora
-- [ ] Listagem de Livro
-- [ ] Cadastro de Livro
+- [x] Listagem de Livro
+- [x] Cadastro de Livro
 
 ### Tecnologias
 

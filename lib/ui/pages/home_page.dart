@@ -1,10 +1,9 @@
 import 'package:aula09_04_05_2022_banco_dados/datasources/datasources.dart';
+import 'package:aula09_04_05_2022_banco_dados/enums/botao_enum.dart';
 import 'package:aula09_04_05_2022_banco_dados/models/models.dart';
 import 'package:aula09_04_05_2022_banco_dados/ui/components/components.dart';
 import 'package:aula09_04_05_2022_banco_dados/ui/pages/pages.dart';
 import 'package:flutter/material.dart';
-
-import 'livros_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -50,7 +49,49 @@ class _HomePageState extends State<HomePage> {
       scrollDirection: Axis.vertical,
       itemCount: listaEditora.length,
       itemBuilder: (context, index) {
-        return _criarItemLista(listaEditora[index]);
+        return Dismissible(
+          key: UniqueKey(),
+          direction: DismissDirection.horizontal,
+          child: _criarItemLista(listaEditora[index]),
+          background: Container(
+            alignment: const Alignment(-1, 0),
+            color: Colors.blue,
+            child: const Text("Editar Editora",
+              style: TextStyle(color: Colors.white, fontSize: 18),),
+          ),
+          secondaryBackground: Container(
+            alignment: const Alignment(1, 0),
+            color: Colors.red,
+            child: const Text("Excluir Editora",
+              style: TextStyle(color: Colors.white, fontSize: 18),),
+          ),
+          onDismissed: (DismissDirection direction) {
+            if (direction == DismissDirection.endToStart) {
+              _editoraHelper.apagar(listaEditora[index]);
+            }
+            else if (direction == DismissDirection.startToEnd) {
+              _abrirCadastroEditora(editora: listaEditora[index]);
+            }
+          },
+          confirmDismiss: (DismissDirection direction) async {
+            if (direction == DismissDirection.endToStart) {
+              return await MensagemAlerta().show(
+                context: context,
+                titulo: 'Atenção',
+                texto: 'Deseja excluir essa editora?',
+                botoes: [
+                  Botao(texto: 'Sim', tipo: BotaoEnum.texto, clique: () {
+                    Navigator.of(context).pop(true);
+                  },),
+                  Botao(texto: 'Não', clique: () {
+                    Navigator.of(context).pop(false);
+                  },),
+                ]
+              );
+            }
+            return true;
+          },
+        );
       },
     );
   }
@@ -58,9 +99,13 @@ class _HomePageState extends State<HomePage> {
   Widget _criarItemLista(Editora editora) {
     return GestureDetector(
       child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(12),
-          child: Text(editora.nome, style: TextStyle(fontSize: 30),),
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Text(editora.nome, style: TextStyle(fontSize: 30),),
+            ),
+          ],
         ),
       ),
       onTap: () {
